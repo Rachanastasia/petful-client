@@ -1,0 +1,43 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+main{
+    height: 100vw;
+    width: 100%;
+    background-color: var(--white);
+    color: var(--dark);
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+header{
+    width: inherit;
+    background-color: var(--accent);
+    color: var(--white);
+    padding: var(--spacer-sm) var(--spacer-med);
+}
+
+p{
+    color: var(--black);
+}
+
+
+
+
+
+
+
+@media all and (min-width: 400px){
+
+
+
+}
+
+@media all and (min-width: 650px){
+
+
+
+}
