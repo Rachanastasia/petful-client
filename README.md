@@ -4,9 +4,9 @@ Petful is an app for a shelter that only can hold one dog and one cat at a time.
 
 This is a repository of the Petful client.
 
-Live App: [Petful](https://petful-client-template-eight.vercel.app/)
+View the live app [Here](https://petful-client-template-eight.vercel.app/)
 
-Server: [Repository](https://github.com/Rachanastasia/petful-server)
+Check out the server repository [Here](https://github.com/Rachanastasia/petful-server)
 
 ## Available Scripts
 
