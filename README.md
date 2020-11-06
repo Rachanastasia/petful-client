@@ -8,6 +8,12 @@ View the live app [Here](https://petful-client-template-eight.vercel.app/)
 
 Check out the server repository [Here](https://github.com/Rachanastasia/petful-server)
 
+## Tech Stack
+
+- React
+- HTML5
+- CSS3
+
 ## Available Scripts
 
 In the project directory, you can run:
