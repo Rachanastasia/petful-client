@@ -74,6 +74,17 @@ form{
 
 }
 
+article{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--spacer-sm) var(--spacer-lg);
+}
+
+article > *{
+    padding: var(--spacer-sm);
+}
 .input-name{
     width: 100%;
     font-size: 18px;
@@ -89,7 +100,7 @@ form>*{
 }
 
 button{
-    width: 85px;
+    width: 90px;
     height: 40px;
     background-color: var(--accent);
     color: var(--white);
@@ -99,6 +110,9 @@ button{
     font-weight: var(--bold);
     margin: var(--spacer-sm) 0;
     font-size: 16px;
+    cursor: pointer;
+    align-self: center;
+    padding: 0;
 }
 
 button:focus{
@@ -142,6 +156,7 @@ button:focus{
 .back{
     margin-right: 30px;
     font-size: 30px;
+    cursor: pointer;
 }
 
 .icon{
