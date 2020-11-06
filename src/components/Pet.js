@@ -2,10 +2,10 @@ import React from 'react'
 import { MdArrowBack } from 'react-icons/md'
 
 function Pet(props) {
-    console.log(props)
+
     return (
         <div className='pet-wrapper'>
-            <div class='pet-header'>
+            <div className='pet-header'>
                 <MdArrowBack
                     className='back'
                     onClick={() => props.move('main')} />
@@ -29,8 +29,10 @@ function Pet(props) {
                 </div>
 
             </div>
-            <button onClick={() => props.move('about')}>Learn more</button>
-            <button onClick={() => props.move('register')}>Adopt</button>
+            <div className='button-wrapper'>
+                <button onClick={() => props.move('about')}>Learn more</button>
+                <button onClick={() => props.move('adopt')}>Adopt</button>
+            </div>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import PetsService from '../services/pets-service';
 import Pet from './Pet';
 import LandingPage from './LandingPage';
 import Adopt from './Adopt';
+import About from './About';
 
 function Main() {
     const [content, setContent] = useState('main');
@@ -32,7 +33,9 @@ function Main() {
                             ? <Pet {...dog} type='dog' move={(c) => setContent(c)} />
                             : content === 'cat'
                                 ? <Pet {...cat} type='cat' move={(c) => setContent(c)} />
-                                : <Adopt />
+                                : content === 'about'
+                                    ? <About move={(c) => setContent(c)} />
+                                    : <Adopt move={(c) => setContent(c)} />
 
                 }
             </Fragment>

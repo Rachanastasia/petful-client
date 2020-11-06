@@ -4,9 +4,13 @@ import PetPreview from './PetPreview';
 function LandingPage(props) {
     return (
         <section>
-            <h3>Current pets</h3>
+            <div className='pet-header'>
+                <h3>Our Current Pets</h3>
+            </div>
             <PetPreview {...props.cat} type='cat' move={() => props.move('cat')} />
             <PetPreview {...props.dog} type='dog' move={() => props.move('dog')} />
+
+            <button onClick={() => props.move('about')}>Learn more</button>
         </section>
     )
 }

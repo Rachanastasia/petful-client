@@ -6,7 +6,7 @@ function PetPreview(props) {
         <div
             className='pet-preview'
             onClick={() => props.move(props.type)}>
-            <h4>Meet {props.name}</h4>
+            <h4 className='meet'>Meet {props.name}</h4>
             <img src={props.imageURL} />
         </div>
     )
