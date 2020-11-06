@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import LandingPage from './LandingPage';
 import Adopt from './Adopt';
+import Footer from './Footer';
 
 import '../css/globals.css';
 import '../css/styles.css';
@@ -17,6 +18,7 @@ function Root() {
           : <Adopt />
 
       }
+      <Footer />
     </main>
   )
 }

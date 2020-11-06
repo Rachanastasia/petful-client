@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@400;800&display=swap');
+
 :root{
     --accent: #01579B;
     --white: #f5f5f5;
@@ -8,6 +10,10 @@
     --spacer-sm: 0.8rem;
     --spacer-med: 1rem;
     --spacer-lg: 1.2rem;
+
+    --font: 'Spartan', sans-serif;
+    --bold: 800;
+
 }
 
 @media all and (min-width: 650px){
