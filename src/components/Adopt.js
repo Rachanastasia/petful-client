@@ -13,7 +13,7 @@ function Adopt(props) {
             return null;
         }
 
-        PeopleService.addPerson(name)
+        PeopleService.addPerson(name.trim())
             .then(() => props.move('main'))
             .catch(err => console.log(err))
     }
@@ -27,7 +27,7 @@ function Adopt(props) {
                     className='back'
                     onClick={() => props.move('main')} />
 
-                <h3>Adopt</h3>
+                <h3>Register to Adopt</h3>
             </div>
 
             <form onSubmit={(e) => handleForm(e)}>
@@ -44,7 +44,7 @@ function Adopt(props) {
                     <label htmlFor='cat'>Cat</label>
                     <input type='radio' name='cat' />
                 </div>
-                <button type='submit'>Adopt</button>
+                <button type='submit'>Start</button>
             </form>
 
             <p className='more-info'>For more information about adopting with Petful, please go <span className='link' onClick={() => props.move('about')}>Here</span></p>

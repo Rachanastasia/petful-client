@@ -11,7 +11,7 @@ function About(props) {
 
                 <h3>About Petful</h3>
             </div>
-            <button onClick={() => props.move('adopt')}>Adopt</button>
+            <button onClick={() => props.move('adopt')}>Start</button>
         </section>
     )
 }
