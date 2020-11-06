@@ -1,9 +1,13 @@
 import React from 'react'
 
 function PetPreview(props) {
+
     return (
-        <div class='pet-preview'>
-            <p>Pet preview {props.animal}</p>
+        <div
+            className='pet-preview'
+            onClick={() => props.move(props.type)}>
+            <h4>Meet {props.name}</h4>
+            <img src={props.imageURL} />
         </div>
     )
 }

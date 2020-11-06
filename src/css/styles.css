@@ -40,11 +40,16 @@ footer p{
 }
 section{
     padding: var(--spacer-med);
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 p{
     color: var(--black);
+    font-size: 14px;
 }
 
 h1{
@@ -57,10 +62,56 @@ h2{
     font-size: 18px;
 }
 
+img{
+    width: 90%;
+}
+
+.pet-preview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: var(--spacer-sm);
+    background-color: var(--light);
+    margin-bottom: var(--spacer-sm);
+    cursor: pointer;
+}
+
+.pet-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 
+.back{
+    margin-right: 30px;
+    font-size: 30px;
+}
 
+
+
+.desc{
+    display: flex;
+    justify-content: flex-start;
+    height: 100%;
+    padding: var(--spacer-sm) 0;
+}
+
+.desc-spec{
+    font-weight: var(--bold);
+}
+.pet-wrapper{
+    padding: var(--spacer-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.pet-wrapper >*{
+    padding: var(--spacer-sm);
+}
 
 
 @media all and (min-width: 400px){

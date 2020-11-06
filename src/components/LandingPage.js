@@ -1,12 +1,12 @@
 import React from 'react'
 import PetPreview from './PetPreview';
 
-function LandingPage() {
+function LandingPage(props) {
     return (
         <section>
-            <h3>Landing Page</h3>
-            <PetPreview animal='cat' />
-            <PetPreview animal='dog' />
+            <h3>Current pets</h3>
+            <PetPreview {...props.cat} type='cat' move={() => props.move('cat')} />
+            <PetPreview {...props.dog} type='dog' move={() => props.move('dog')} />
         </section>
     )
 }
