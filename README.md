@@ -15,6 +15,14 @@ Check out the server repository [Here](https://github.com/Rachanastasia/petful-s
 - CSS3
 - Deployed with Vercel
 
+## Images
+
+![](screenshots/petful-screenshot-1.png)
+
+![](screenshots/petful-screenshot-2.png)
+
+![](screenshots/petful-screenshot-3.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
