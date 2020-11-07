@@ -13,6 +13,7 @@ Check out the server repository [Here](https://github.com/Rachanastasia/petful-s
 - React
 - HTML5
 - CSS3
+- Deployed with Vercel
 
 ## Available Scripts
 
