@@ -4,7 +4,7 @@ import { MdArrowBack } from 'react-icons/md'
 function Pet(props) {
 
     return (
-        <div className='pet-wrapper'>
+        <section className='pet-wrapper'>
             <div className='pet-header'>
                 <MdArrowBack
                     className='back'
@@ -30,10 +30,9 @@ function Pet(props) {
 
             </div>
             <div className='button-wrapper'>
-                <button onClick={() => props.move('about')}>Learn more</button>
                 <button onClick={() => props.move('adopt')}>Register</button>
             </div>
-        </div>
+        </section>
     )
 }
 
