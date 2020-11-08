@@ -11,6 +11,7 @@ main{
     display: flex; 
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     font-family: var(--font);
 }
 
@@ -91,6 +92,7 @@ article > *{
     width: 100%;
     font-size: 18px;
     outline:0;
+    margin-top: 3px;
 }
 
 .input-name:focus{
@@ -197,6 +199,27 @@ button:focus{
     padding-top: var(--spacer-lg);
 }
 
+.adopt_wrapper{
+    justify-content: space-evenly;
+    height: calc(100vh - 100px);
+}
+
+.landing_wrapper section{
+    padding-bottom: 0;
+}
+
+.ready_wrapper{
+    margin: 5% 0;
+    width: 90%;
+    height: 120px;
+    border: 4px solid var(--accent);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--spacer-sm);
+    color: var(--dark);
+}
 
 @media all and (min-width: 400px){
 

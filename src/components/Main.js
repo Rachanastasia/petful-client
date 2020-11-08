@@ -1,21 +1,19 @@
-import React, { useEffect, Fragment, useState, useContext } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import PetsService from '../services/pets-service';
 import Pet from './Pet';
 import LandingPage from './LandingPage';
+import ReadyToAdopt from './ReadyToAdopt';
 import Adopt from './Adopt';
-import About from './About';
 
 function Main() {
     const [content, setContent] = useState('main');
     const [cat, setCat] = useState(null);
     const [dog, setDog] = useState(null);
+    const [people, setPeople] = useState(["Randy Lahey", "Trevor Cory", "Jim Lahey", "Rachel", "Sam", "test", "test"])
+    const [user, setUser] = useState('test')
 
-    const page = {
-        content,
-        change: (val) => setContent(val)
-    }
+    console.log('User', user, people)
 
-    const PageContext = React.createContext(page)
 
 
     useEffect(() => {
@@ -23,23 +21,27 @@ function Main() {
         PetsService.getDog().then(dog => setDog(dog));
     }, [])
 
-    return (
-        <PageContext.Provider value={page}>
-            <Fragment>
-                {
-                    content === 'main'
-                        ? <LandingPage cat={cat} dog={dog} move={(c) => setContent(c)} />
-                        : content === 'dog'
-                            ? <Pet {...dog} type='dog' move={(c) => setContent(c)} />
-                            : content === 'cat'
-                                ? <Pet {...cat} type='cat' move={(c) => setContent(c)} />
-                                : content === 'about'
-                                    ? <About move={(c) => setContent(c)} />
-                                    : <Adopt move={(c) => setContent(c)} />
 
-                }
-            </Fragment>
-        </PageContext.Provider>
+
+    return (
+        <Fragment>
+            {people.length && user ? <ReadyToAdopt user={user} people={people} /> : null}
+            {
+                content === 'dog'
+                    ? <Pet {...dog} type='dog' move={(c) => setContent(c)} />
+                    : content === 'cat'
+                        ? <Pet {...cat} type='cat' move={(c) => setContent(c)} />
+                        : content === 'adopt'
+
+                            ? <Adopt
+                                move={(c) => setContent(c)}
+                                people={(p) => setPeople(p)}
+                                user={(u) => setUser(u)} />
+                            : <LandingPage cat={cat} dog={dog} move={(c) => setContent(c)} />
+
+            }
+        </Fragment>
+
 
     )
 }

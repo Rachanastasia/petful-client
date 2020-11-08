@@ -23,6 +23,31 @@ Check out the server repository [Here](https://github.com/Rachanastasia/petful-s
 
 ![](screenshots/petful-screenshot-3.png)
 
+## User Stories (from Thinkful assignment)
+
+### User Story #1
+
+As a pet lover, I want to visit the FIFO pet adoption site
+so that I can get more information about the adoption process.
+
+### User Story #2
+
+As a user interested in adopting pets, I want to get more information
+on each pet so that I can make an informed decision about who to adopt.
+
+### User Story #3
+
+As a user interested in adopting pets,
+I want to see the pets that I can adopt.
+
+### User Story #4
+
+As a user interested in adopting pets, I want to get in line to adopt.
+
+### User Story #5
+
+As a user interested in adopting pets, I want to adopt a pet.
+
 ## Available Scripts
 
 In the project directory, you can run:

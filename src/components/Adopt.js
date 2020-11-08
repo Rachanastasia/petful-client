@@ -15,12 +15,15 @@ function Adopt(props) {
 
         PeopleService.addPerson(name.trim())
             .then(() => props.move('main'))
+            .then(() => props.user(name))
+            .then(() => PeopleService.getAllPeople()
+                .then((res) => props.people(res)))
             .catch(err => console.log(err))
     }
 
 
     return (
-        <section>
+        <section className='adopt_wrapper'>
 
             <div className='pet-header'>
                 <MdArrowBack
