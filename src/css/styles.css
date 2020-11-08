@@ -210,21 +210,20 @@ button:focus{
 }
 
 .ready_wrapper{
-    background-color: var(--extreme);
+    background-color: var(--light);
     width: inherit;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: var(--spacer-sm);
+    padding: var(--spacer-lg);
     color: var(--dark);
 }
 
-.ready_wrapper{
-    display: flex;
-}
-.ready_wrapper>*{
-    padding-bottom: var(--spacer-sm);
+
+
+.ready_wrapper p{
+    padding-top: var(--spacer-sm);
 }
 
 .blue{
@@ -234,6 +233,18 @@ button:focus{
 
 .pointer{
     cursor: pointer;
+}
+.ready_title{
+    color: var(--black);
+    font-weight: 400;
+}
+
+.arrow{
+    font-size: 30px;
+}
+
+.center{
+    align-self: center;
 }
 
 @media all and (min-width: 400px){

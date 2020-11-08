@@ -30,7 +30,7 @@ function Adopt(props) {
                     className='back'
                     onClick={() => props.move('main')} />
 
-                <h3>Register to Adopt</h3>
+                <h3>Get in Line to Adopt</h3>
             </div>
 
             <form onSubmit={(e) => handleForm(e)}>
@@ -47,7 +47,7 @@ function Adopt(props) {
                     <label htmlFor='cat'>Cat</label>
                     <input type='radio' name='cat' />
                 </div>
-                <button type='submit'>Register</button>
+                <button type='submit'>Get in Line</button>
             </form>
 
             <p className='more-info'>For more information about adopting with Petful, please go <span className='link' onClick={() => props.move('about')}>Here</span></p>

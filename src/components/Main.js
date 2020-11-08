@@ -11,6 +11,8 @@ function Main() {
     const [dog, setDog] = useState(null);
     const [people, setPeople] = useState(["Randy Lahey", "Trevor Cory", "Jim Lahey", "Rachel", "Sam", "test"])
     const [user, setUser] = useState('test')
+    // const [people, setPeople] = useState([])
+    // const [user, setUser] = useState(null)
 
 
 
@@ -24,7 +26,9 @@ function Main() {
 
     return (
         <Fragment>
-            {people.length && user ? <ReadyToAdopt name={user} people={people} /> : null}
+            {people.length && user ?
+                <ReadyToAdopt name={user} people={people} clearUser={(n) => setUser(n)} />
+                : null}
             {
                 content === 'dog'
                     ? <Pet {...dog} type='dog' move={(c) => setContent(c)} />

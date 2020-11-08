@@ -1,4 +1,4 @@
-//add to bottom of landing page if registered
+//add to bottom of landing page if ed
 // in line to adopt
 // x-person
 

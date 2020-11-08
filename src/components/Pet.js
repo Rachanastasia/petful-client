@@ -30,7 +30,7 @@ function Pet(props) {
 
             </div>
             <div className='button-wrapper'>
-                <button onClick={() => props.move('adopt')}>Register</button>
+                <button onClick={() => props.move('adopt')}>Get in line</button>
             </div>
         </section>
     )

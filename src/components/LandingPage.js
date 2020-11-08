@@ -28,7 +28,7 @@ function LandingPage(props) {
 
                     <h4>But what if I want to adopt a specific dog?</h4>
                     <p>Unfortunately, Petful cannot accomidate any special requests in adoption.</p>
-                    <button onClick={() => props.move('adopt')}>Register</button>
+                    <button onClick={() => props.move('adopt')}>Get in line</button>
                 </article>
             </section>
         </div>

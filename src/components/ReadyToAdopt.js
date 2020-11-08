@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import useGetPlace from '../hooks/useGetPlace'
+import { MdExpandLess, MdExpandMore } from 'react-icons/md'
 
 function ReadyToAdopt(props) {
     const [queue, setQueue] = useState([])
@@ -19,25 +20,25 @@ function ReadyToAdopt(props) {
 
     return (
         <div className='ready_wrapper'>
-            <h3>You're waiting to adopt!</h3>
-            <p className='banner_p'>Place in line : <span className='blue'>{useGetPlace(queue, props.name)}</span></p>
+            <h3 className='ready_title'>You're in line adopt!</h3>
+            <p className='banner_p'>There are {useGetPlace(queue, props.name)} people ahead of you.</p>
             <div>
-                <p className='banner_p'>There are currently {queue.length} people in line</p>
+                <p className='banner_p'>There are {queue.length} people waiting to adopt with Petful</p>
                 {!toggleQueue
-                    ? <span className='blue pointer' onClick={() => setToggleQueue(true)}>See all</span>
+                    ? <p className='blue pointer center' onClick={() => setToggleQueue(true)}><MdExpandMore className='arrow' aria-label='show more' /></p>
                     : <Fragment>
                         {queue.map((p, index) => <p key={index}>{p}</p>)}
-                        <span className='blue pointer' onClick={() => setToggleQueue(false)}>Hide all</span>
+                        <p className='blue pointer center' onClick={() => setToggleQueue(false)}><MdExpandLess className='arrow' aria-label='show less' /></p>
                     </Fragment>
                 }
             </div>
             <div>
                 <p className='banner_p'>This is the most recent adoption </p>
                 {!toggleAdoptions
-                    ? <span className='blue pointer' onClick={() => setToggleAdoptions(true)}>View all</span>
+                    ? <p className='blue pointer center' onClick={() => setToggleAdoptions(true)}><MdExpandMore className='arrow' aria-label='show more' /></p>
                     : <Fragment>
                         {queue.map((p, index) => <p key={index}>{p}</p>)}
-                        <span className='blue pointer' onClick={() => setToggleAdoptions(false)}>Hide all</span>
+                        <p className='blue pointer center' onClick={() => setToggleAdoptions(false)}><MdExpandLess className='arrow' aria-label='show less' /></p>
                     </Fragment>
                 }
             </div>
