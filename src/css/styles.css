@@ -30,6 +30,7 @@ footer{
     font-weight: var(--bold);
     display: flex;
     height: 100%;
+    width: inherit;
     color: var(--light);
     justify-content: space-between;
     align-items: center;
@@ -209,16 +210,30 @@ button:focus{
 }
 
 .ready_wrapper{
-    margin: 5% 0;
-    width: 90%;
-    height: 120px;
-    border: 4px solid var(--accent);
-    border-radius: 4px;
+    background-color: var(--extreme);
+    width: inherit;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: var(--spacer-sm);
     color: var(--dark);
+}
+
+.ready_wrapper{
+    display: flex;
+}
+.ready_wrapper>*{
+    padding-bottom: var(--spacer-sm);
+}
+
+.blue{
+    color: var(--accent); 
+    font-weight: var(--bold);
+}
+
+.pointer{
+    cursor: pointer;
 }
 
 @media all and (min-width: 400px){
