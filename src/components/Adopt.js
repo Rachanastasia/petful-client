@@ -1,39 +1,22 @@
 import React, { useState } from 'react'
-
+import { Link, Redirect } from 'react-router-dom';
 import PeopleService from '../services/person-service';
 import { MdArrowBack } from 'react-icons/md'
 
 
 function Adopt(props) {
-    const [name, setName] = useState('')
-
-    const handleForm = (e) => {
-        e.preventDefault();
-        if (!name.trim()) {
-            return null;
-        }
-
-        PeopleService.addPerson(name.trim())
-            .then(() => props.move('main'))
-            .then(() => props.user(name))
-            .then(() => PeopleService.getAllPeople()
-                .then((res) => props.people(res)))
-            .catch(err => console.log(err))
-    }
-
+    const [name, setName] = useState('');
 
     return (
         <section className='adopt_wrapper'>
 
             <div className='pet-header'>
-                <MdArrowBack
-                    className='back'
-                    onClick={() => props.move('main')} />
+                <Link to='/'><MdArrowBack className='back' /></Link>
 
                 <h3>Get in Line to Adopt</h3>
             </div>
 
-            <form onSubmit={(e) => handleForm(e)}>
+            <form>
                 <div className='form-row'>
                     <label htmlFor='name'>Your name</label>
                     <input type='text' name='name' className='input-name' value={name} onChange={(e) => setName(e.target.value)} />
@@ -47,10 +30,12 @@ function Adopt(props) {
                     <label htmlFor='cat'>Cat</label>
                     <input type='radio' name='cat' />
                 </div>
-                <button type='submit'>Get in Line</button>
+                <Link to='/adopt'>
+                    <button type='button' onClick={() => (PeopleService.addPerson(name).then(props.user(name)))}>Get in Line</button>
+                </Link>
             </form>
 
-            <p className='more-info'>For more information about adopting with Petful, please go <span className='link' onClick={() => props.move('about')}>Here</span></p>
+            <p className='more-info'>For more information about adopting with Petful, please go <Link className='link' to='/'>Here</Link></p>
         </section>
     )
 }

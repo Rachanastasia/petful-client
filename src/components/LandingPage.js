@@ -1,18 +1,17 @@
 import React, { Fragment } from 'react'
 import PetPreview from './PetPreview';
-
+import { Link } from 'react-router-dom'
 
 function LandingPage(props) {
+
     return (
         <div className='landing_wrapper'>
             <section>
                 <div className='pet-header'>
                     <h3>Our Current Pets</h3>
                 </div>
-                <PetPreview {...props.cat} type='cat' move={() => props.move('cat')} />
-                <PetPreview {...props.dog} type='dog' move={() => props.move('dog')} />
-
-                {/* <button onClick={() => props.move('about')}>Learn more</button> */}
+                <Link to='/cat'><PetPreview {...props.cat} type='cat' /></Link>
+                <Link to='/dog'><PetPreview {...props.dog} type='dog' /></Link>
             </section>
             <section>
                 <div className='pet-header'>
@@ -28,7 +27,7 @@ function LandingPage(props) {
 
                     <h4>But what if I want to adopt a specific dog?</h4>
                     <p>Unfortunately, Petful cannot accomidate any special requests in adoption.</p>
-                    <button onClick={() => props.move('adopt')}>Get in line</button>
+                    <Link to='/register'><button>Get in line</button></Link>
                 </article>
             </section>
         </div>
@@ -36,3 +35,4 @@ function LandingPage(props) {
 }
 
 export default LandingPage
+

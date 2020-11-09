@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { MdArrowBack } from 'react-icons/md'
 
 function Pet(props) {
@@ -6,9 +7,8 @@ function Pet(props) {
     return (
         <section className='pet-wrapper'>
             <div className='pet-header'>
-                <MdArrowBack
-                    className='back'
-                    onClick={() => props.move('main')} />
+                <Link to='/'><MdArrowBack
+                    className='back' /></Link>
                 <h3>{props.name}</h3>
             </div>
 
@@ -30,10 +30,12 @@ function Pet(props) {
 
             </div>
             <div className='button-wrapper'>
-                <button onClick={() => props.move('adopt')}>Get in line</button>
+                <Link to='/register'> <button>Get in line</button></Link>
             </div>
         </section>
     )
 }
 
 export default Pet
+
+

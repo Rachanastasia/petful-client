@@ -219,6 +219,10 @@ button:focus{
     padding: var(--spacer-lg);
     color: var(--dark);
 }
+a{
+    text-decoration: none;
+    color: inherit;
+}
 
 
 

@@ -1,48 +1,104 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import PetsService from '../services/pets-service';
+import PeopleService from '../services/person-service'
 import Pet from './Pet';
 import LandingPage from './LandingPage';
-import ReadyToAdopt from './ReadyToAdopt';
+import WaitingRoom from './WaitingRoom';
 import Adopt from './Adopt';
+import { Route, Switch } from 'react-router-dom';
 
 function Main() {
-    const [content, setContent] = useState('main');
+    //sets page view
+
+    //current cat and dog
     const [cat, setCat] = useState(null);
     const [dog, setDog] = useState(null);
-    const [people, setPeople] = useState(["Randy Lahey", "Trevor Cory", "Jim Lahey", "Rachel", "Sam", "test"])
+
+    //current people in line
+    const [people, setPeople] = useState([])
+    //current user's last entered name
     const [user, setUser] = useState('test')
-    // const [people, setPeople] = useState([])
-    // const [user, setUser] = useState(null)
-
-
 
 
     useEffect(() => {
         PetsService.getCat().then(cat => setCat(cat));
         PetsService.getDog().then(dog => setDog(dog));
+        PeopleService.getAllPeople().then(p => setPeople(p))
+
     }, [])
 
+    const newCat = () => {
+        PetsService.adpotCat()
+            .then(() => PetsService.getCat()
+                .then(cat => setCat(cat)))
+            .catch(err => console.log(err, err.message))
+    }
 
+    const newDog = () => {
+        PetsService.adpotDog()
+            .then(() => PetsService.getDog()
+                .then(dog => setDog(dog))
+            )
+            .catch(err => console.log(err, err.message))
+    }
+
+
+    const adoptPet = (animal) => {
+        const type = animal == 'cat' ? cat : dog;
+
+        let temp = people
+        temp.shift()
+
+        setPeople(temp)
+
+        if (type === cat) {
+
+            newCat()
+
+        } else {
+
+            newDog()
+        }
+
+
+    }
 
     return (
         <Fragment>
-            {people.length && user ?
-                <ReadyToAdopt name={user} people={people} clearUser={(n) => setUser(n)} />
-                : null}
-            {
-                content === 'dog'
-                    ? <Pet {...dog} type='dog' move={(c) => setContent(c)} />
-                    : content === 'cat'
-                        ? <Pet {...cat} type='cat' move={(c) => setContent(c)} />
-                        : content === 'adopt'
 
-                            ? <Adopt
-                                move={(c) => setContent(c)}
-                                people={(p) => setPeople(p)}
-                                user={(u) => setUser(u)} />
-                            : <LandingPage cat={cat} dog={dog} move={(c) => setContent(c)} />
+            <Switch>
 
-            }
+                <Route
+                    exact
+                    path='/'
+                    render={() => <LandingPage cat={cat} dog={dog} />}
+                />
+
+                <Route
+                    path='/cat'
+                    render={() => <Pet {...cat} type='cat' />} />
+
+                <Route
+                    path='/dog'
+                    render={() => <Pet {...dog} type='dog' />} />
+
+                <Route
+                    path='/register'
+                    render={() => <Adopt user={(u) => setUser(u)} />} />
+
+                <Route
+                    path='/adopt'
+                    render={() => <WaitingRoom
+                        user={(u) => setUser(u)}
+                        name={user}
+                        people={people}
+                        adoptPet={(p) => adoptPet(p)}
+                        getAllPeople={() => PeopleService.getAllPeople().then(p => setPeople(p))} />
+                    } />
+
+            </Switch>
+
+
         </Fragment>
 
 
@@ -50,3 +106,12 @@ function Main() {
 }
 
 export default Main
+
+
+
+
+// {user && people
+    // ? <ReadyToAdopt
+
+    //     updatePeople={() => PeopleService.getAllPeople().then(people => setPeople(people))} />
+    // : null}
