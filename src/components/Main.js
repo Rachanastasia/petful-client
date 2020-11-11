@@ -1,67 +1,28 @@
-import React, { useEffect, Fragment, useState } from 'react';
-import PetsService from '../services/pets-service';
-import PeopleService from '../services/person-service'
+import React, { useEffect, Fragment, useContext } from 'react';
 import Pet from './Pet';
 import LandingPage from './LandingPage';
 import WaitingRoom from './WaitingRoom';
 import Adopt from './Adopt';
 import { Route, Switch } from 'react-router-dom';
+import { PetContext } from '../contexts/PetContext';
 
 function Main() {
-    //sets page view
-
-    //current cat and dog
-    const [cat, setCat] = useState(null);
-    const [dog, setDog] = useState(null);
-
-    //current people in line
-    const [people, setPeople] = useState([])
-    //current user's last entered name
-    const [user, setUser] = useState('test')
+    const ctx = useContext(PetContext);
 
 
     useEffect(() => {
-        PetsService.getCat().then(cat => setCat(cat));
-        PetsService.getDog().then(dog => setDog(dog));
-        PeopleService.getAllPeople().then(p => setPeople(p))
-
-    }, [])
-
-    const newCat = () => {
-        PetsService.adpotCat()
-            .then(() => PetsService.getCat()
-                .then(cat => setCat(cat)))
-            .catch(err => console.log(err, err.message))
-    }
-
-    const newDog = () => {
-        PetsService.adpotDog()
-            .then(() => PetsService.getDog()
-                .then(dog => setDog(dog))
-            )
-            .catch(err => console.log(err, err.message))
-    }
-
-
-    const adoptPet = (animal) => {
-        const type = animal == 'cat' ? cat : dog;
-
-        let temp = people
-        temp.shift()
-
-        setPeople(temp)
-
-        if (type === cat) {
-
-            newCat()
-
-        } else {
-
-            newDog()
+        if (!ctx.cat) {
+            ctx.getCat()
+        }
+        if (!ctx.dog) {
+            ctx.getDog()
         }
 
+        if (ctx.people === []) {
+            ctx.getPeople();
+        }
 
-    }
+    }, [])
 
     return (
         <Fragment>
@@ -71,30 +32,24 @@ function Main() {
                 <Route
                     exact
                     path='/'
-                    render={() => <LandingPage cat={cat} dog={dog} />}
+                    component={LandingPage}
                 />
 
                 <Route
                     path='/cat'
-                    render={() => <Pet {...cat} type='cat' />} />
+                    render={() => <Pet type='cat' {...ctx.cat} />} />
 
                 <Route
                     path='/dog'
-                    render={() => <Pet {...dog} type='dog' />} />
+                    render={() => <Pet type='dog' {...ctx.dog} />} />
 
                 <Route
                     path='/register'
-                    render={() => <Adopt user={(u) => setUser(u)} />} />
+                    component={Adopt} />
 
                 <Route
                     path='/adopt'
-                    render={() => <WaitingRoom
-                        user={(u) => setUser(u)}
-                        name={user}
-                        people={people}
-                        adoptPet={(p) => adoptPet(p)}
-                        getAllPeople={() => PeopleService.getAllPeople().then(p => setPeople(p))} />
-                    } />
+                    render={() => <WaitingRoom {...ctx} />} />
 
             </Switch>
 

@@ -25,10 +25,11 @@ const PetsService = {
         return fetch(`${config.REACT_APP_API_BASE}/api/cats`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'content-type': 'application/json'
             }
         })
             .then(res => res.json())
+            .then(setInterval(() => { }, 5000))
             .catch(err => console.log(err, err.message))
     },
 

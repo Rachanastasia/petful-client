@@ -1,8 +1,24 @@
-import React, { Fragment } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PetPreview from './PetPreview';
 import { Link } from 'react-router-dom'
 
+import { PetContext } from '../contexts/PetContext'
+
 function LandingPage(props) {
+    const ctx = useContext(PetContext)
+
+    useEffect(() => {
+        if (!ctx.cat) {
+            ctx.getCat()
+        }
+        if (!ctx.dog) {
+            ctx.getDog()
+        }
+        if (!ctx.people) {
+            ctx.getPeople()
+        }
+
+    }, [])
 
     return (
         <div className='landing_wrapper'>
@@ -10,8 +26,8 @@ function LandingPage(props) {
                 <div className='pet-header'>
                     <h3>Our Current Pets</h3>
                 </div>
-                <Link to='/cat'><PetPreview {...props.cat} type='cat' /></Link>
-                <Link to='/dog'><PetPreview {...props.dog} type='dog' /></Link>
+                <Link to='/cat'><PetPreview {...ctx.cat} type='cat' /></Link>
+                <Link to='/dog'><PetPreview {...ctx.dog} type='dog' /></Link>
             </section>
             <section>
                 <div className='pet-header'>

@@ -1,62 +1,56 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, useContext } from 'react';
 import PetsService from '../services/pets-service';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md'
+import { PetContext } from '../contexts/PetContext';
+
+
+
 
 function WaitingRoom(props) {
-
+    const ctx = useContext(PetContext)
 
     const [toggleQueue, setToggleQueue] = useState(false)
-    const [adopt, setAdopt] = useState(false);
-    const [moving, setMoving] = useState(false)
-
-    let index = 0;
-
-    const getPlace = (arr, name) => {
-        let i = 0;
-        for (i = 0; i < arr.length; i++) {
-            if (arr[i] === name) {
-                break;
-            }
-
-            return i;
-        }
-    }
+    const [place, setPlace] = useState(7)
 
     useEffect(() => {
-        props.getAllPeople();
-        handleAdoptPets();
+
+        ctx.getPeople()
+
+        if (!ctx.cat) {
+            ctx.getCat()
+        }
+        if (!ctx.dog) {
+            ctx.getDog()
+        }
+
+
+
     }, [])
 
 
-    function handleAdoptPets() {
+    // function handleAdoptPets() {
 
 
-        index = getPlace(props.people, props.name);
 
-        for (let i = 0; i < index + 1; i++) {
-            let pet = Math.floor(Math.random() * 2) === 0 ? 'cat' : 'dog';
-            setInterval(() => props.adoptPet(pet), 10000)
-        }
+    // for (let i = 0; i < ctx.people.length + 1; i++) {
+    //     let pet = Math.floor(Math.random() * 2) === 0 ? 'cat' : 'dog';
 
-        setMoving(false);
-    }
+    //     ctx.adoptPet(pet)
+    // }
 
-    if (adopt === true) {
-        props.setUser(null)
-    }
 
 
 
     return (
         <section>
             <h3 className='ready_title'>You're in line adopt!</h3>
-            <p className='banner_p'>There are {index} people ahead of you.</p>
+            <p className='banner_p'>There are {ctx.people.length} people ahead of you.</p>
             <div>
-                <p className='banner_p'>There are {props.people.length} people waiting to adopt with Petful</p>
+                <p className='banner_p'>There are {ctx.people.length + 1} people waiting to adopt with Petful</p>
                 {!toggleQueue
                     ? <p className='blue pointer center' onClick={() => setToggleQueue(true)}><MdExpandMore className='arrow' aria-label='show more' /></p>
                     : <Fragment>
-                        {props.people.map((p, index) => <p key={index}>{p}</p>)}
+                        {[...ctx.people, ctx.user].map((p, index) => <p key={index}>{p}</p>)}
                         <p className='blue pointer center' onClick={() => setToggleQueue(false)}><MdExpandLess className='arrow' aria-label='show less' /></p>
                     </Fragment>
                 }

@@ -1,17 +1,32 @@
-import React, { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom';
-import PeopleService from '../services/person-service';
+import React, { useState, useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { MdArrowBack } from 'react-icons/md'
+import { PetContext } from '../contexts/PetContext'
+import PeopleService from '../services/person-service'
 
-
-function Adopt(props) {
+function Adopt() {
+    const ctx = useContext(PetContext)
     const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (!ctx.people) {
+            ctx.getPeople()
+        }
+
+    }, [])
+
+    const handlePost = () => {
+        ctx.setUser(name)
+        return PeopleService.addPerson(name).catch(err => console.log(err.message, err))
+    }
 
     return (
         <section className='adopt_wrapper'>
 
             <div className='pet-header'>
-                <Link to='/'><MdArrowBack className='back' /></Link>
+                <Link to='/'>
+                    <MdArrowBack className='back' />
+                </Link>
 
                 <h3>Get in Line to Adopt</h3>
             </div>
@@ -31,7 +46,7 @@ function Adopt(props) {
                     <input type='radio' name='cat' />
                 </div>
                 <Link to='/adopt'>
-                    <button type='button' onClick={() => (PeopleService.addPerson(name).then(props.user(name)))}>Get in Line</button>
+                    <button type='button' onClick={handlePost}>Get in Line</button>
                 </Link>
             </form>
 

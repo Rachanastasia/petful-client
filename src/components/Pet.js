@@ -4,6 +4,9 @@ import { MdArrowBack } from 'react-icons/md'
 
 function Pet(props) {
 
+
+
+
     return (
         <section className='pet-wrapper'>
             <div className='pet-header'>

@@ -16,7 +16,6 @@ const PeopleService = {
             },
             body: JSON.stringify({ person: name })
         })
-            .then(res => res.json())
             .catch(err => console.log(err, err.message))
     },
 
