@@ -100,6 +100,10 @@ article > *{
     border: 2px solid var(--accent);
 }
 
+.selected{
+    border: 2px solid var(--accent);
+}
+
 form>*{
     padding: var(--spacer-sm);
 }

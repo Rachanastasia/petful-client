@@ -60,20 +60,17 @@ export function PetProvider(props) {
             .catch(err => console.log(err, err.message))
     }
 
-    const adoptPet = (animal) => {
-        const type = animal == 'cat' ? cat : dog;
+    const adoptPet = () => {
+        const rand = !cat && !dog ? Math.floor(Math.random * 1) === 1 ? cat = true : dog = true : cat;
 
         let temp = people
         temp.shift()
-
         setPeople(temp)
 
-        if (type === cat) {
-
+        if (rand === 1) {
             newCat()
-
-        } else {
-
+        }
+        if (rand === 0) {
             newDog()
         }
     }

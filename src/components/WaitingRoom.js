@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment, useContext } from 'react';
 import PetsService from '../services/pets-service';
-import { MdExpandLess, MdExpandMore } from 'react-icons/md'
+import { MdExpandLess, MdExpandMore } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import { PetContext } from '../contexts/PetContext';
 import PetPreview from './PetPreview';
 
@@ -11,6 +12,8 @@ function WaitingRoom(props) {
 
     const [toggleQueue, setToggleQueue] = useState(false)
     const [ready, setReady] = useState(false)
+    const [cat, setCat] = useState(false)
+    const [dog, setDog] = useState(false)
 
     useEffect(() => {
 
@@ -49,29 +52,45 @@ function WaitingRoom(props) {
         <Fragment>
             {ready === true
                 ? <section>
-                    <h2>It's your turn!</h2>
-                    <PetPreview {...ctx.cat} type='cat' expanded={true} />
-                    <PetPreview {...ctx.dog} type='dog' expanded={true} />
+                    <h3>It's your turn!</h3>
+                    <PetPreview selected={cat} select={(m) => setCat(m)}{...ctx.cat} type='cat' expanded={true} />
+                    <PetPreview selected={dog} select={(m) => setDog(m)}{...ctx.dog} type='dog' expanded={true} />
+                    <button onClick={() => setReady('review')}>Adopt</button>
                 </section>
-                : <section>
-                    <h3 className='ready_title'>You're in line adopt!</h3>
-                    <p className='banner_p'>There are {ctx.people.length ? [...ctx.people, user].length - 1 : 'no'} people ahead of you.</p>
-                    <div>
-                        <p className='banner_p'>There are {[...ctx.people, user].length} people waiting to adopt with Petful</p>
-                        {!toggleQueue
-                            ? <p className='blue pointer center' onClick={() => setToggleQueue(true)}>
-                                <MdExpandMore className='arrow' aria-label='show more' />
-                            </p>
+                : ready === 'review'
+                    ? <section>
+                        <h3>Congratulations!</h3>
+                        {cat === true
+                            ? <Fragment>
+                                <h4>Your new cat:</h4>
+                                <PetPreview {...ctx.cat} />
+                            </Fragment>
                             : <Fragment>
-                                {[...ctx.people, user].map((p, index) => <p key={index}>{p}</p>)}
-                                <p className='blue pointer center' onClick={() => setToggleQueue(false)}>
-                                    <MdExpandLess className='arrow' aria-label='show less' />
-                                </p>
+                                <h4>Your new dog:</h4>
+                                <PetPreview {...ctx.dog} />
                             </Fragment>
                         }
-                        <button onClick={() => ctx.adoptPet()}>ADOPT</button>
-                    </div>
-                </section>
+                        <Link to='/'><button>Done</button></Link>
+                    </section>
+                    : <section>
+                        <h3 className='ready_title'>You're in line adopt!</h3>
+                        <p className='banner_p'>There are {ctx.people.length ? [...ctx.people, user].length - 1 : 'no'} people ahead of you.</p>
+                        <div>
+                            <p className='banner_p'>There are {[...ctx.people, user].length} people waiting to adopt with Petful</p>
+                            {!toggleQueue
+                                ? <p className='blue pointer center' onClick={() => setToggleQueue(true)}>
+                                    <MdExpandMore className='arrow' aria-label='show more' />
+                                </p>
+                                : <Fragment>
+                                    {[...ctx.people, user].map((p, index) => <p key={index}>{p}</p>)}
+                                    <p className='blue pointer center' onClick={() => setToggleQueue(false)}>
+                                        <MdExpandLess className='arrow' aria-label='show less' />
+                                    </p>
+                                </Fragment>
+                            }
+                            <button onClick={() => ctx.adoptPet([...ctx.people, user])}>ADOPT</button>
+                        </div>
+                    </section>
 
             }
         </Fragment>

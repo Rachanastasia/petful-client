@@ -5,7 +5,7 @@ function PetPreview(props) {
 
     return (
         <div
-            className='pet-preview'
+            className={props.selected === true ? 'selected pet-preview' : 'pet-preview'}
         >
             <h4 className='meet'>Meet {props.name}</h4>
             <img src={props.imageURL} />
@@ -13,10 +13,11 @@ function PetPreview(props) {
                 props.expanded
                     ? <div>
                         <PetDetails {...props} />
-                        <button className='adopt_button'>Adopt me!</button>
+                        <button className='adopt_button' onClick={() => props.select(!props.selected)}>Adopt me!</button>
                     </div>
-                    : null}
-        </div>
+                    : null
+            }
+        </div >
     )
 }
 
