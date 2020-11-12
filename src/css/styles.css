@@ -66,8 +66,8 @@ h2{
 }
 
 img{
-    width: 90%;
-    max-width: 70vw;
+    width: 100%;
+    max-width: 90vw;
 }
 
 form{
@@ -93,7 +93,7 @@ article > *{
     width: 100%;
     font-size: 18px;
     outline:0;
-    margin-top: 3px;
+    margin-top: 6px;
 }
 
 .input-name:focus{
@@ -130,8 +130,9 @@ button:focus{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     flex-direction: column;
-    padding: var(--spacer-med) 0;
+    padding: var(--spacer-med) var(--spacer-sm);
     background-color: var(--light);
     margin: var(--spacer-sm) 0;
     cursor: pointer;
@@ -153,6 +154,10 @@ button:focus{
     color: var(--accent);
 }
 
+.adopt_button{
+    align-self: center;
+}
+
 .meet{
     font-size: 18px;
     padding-bottom: var(--spacer-sm);
@@ -171,6 +176,7 @@ button:focus{
 
 .desc{
     display: flex;
+    width: inherit;
     justify-content: space-between;
     height: 100%;
     padding: var(--spacer-sm) 0;
@@ -179,8 +185,14 @@ button:focus{
 .desc-spec{
     font-weight: var(--bold);
 }
+
+.desc-val{
+    text-align: right;
+}
+
 .pet-wrapper{
     padding: var(--spacer-sm);
+    width: inherit;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -188,6 +200,15 @@ button:focus{
 }
 .pet-wrapper >*{
     padding: var(--spacer-sm);
+}
+
+.desc_wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 var(--spacer-med);
 }
 
 .button-wrapper{

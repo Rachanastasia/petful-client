@@ -49,14 +49,14 @@ export function PetProvider(props) {
     const newCat = () => {
         PetsService.adpotCat()
             .then(() => PetsService.getCat()
-                .then(setInterval(cat => setCat(cat)), 5000))
-            .catch(err => console.log(err, err.message))
+                .then(cat => setCat(cat))
+                .catch(err => console.log(err, err.message)))
     }
 
     const newDog = () => {
         PetsService.adpotDog()
             .then(() => PetsService.getDog()
-                .then(setInterval(dog => setDog(dog)), 5000))
+                .then(dog => setDog(dog)))
             .catch(err => console.log(err, err.message))
     }
 

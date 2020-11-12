@@ -1,4 +1,5 @@
 import React from 'react'
+import PetDetails from './PetDetails'
 
 function PetPreview(props) {
 
@@ -8,6 +9,13 @@ function PetPreview(props) {
         >
             <h4 className='meet'>Meet {props.name}</h4>
             <img src={props.imageURL} />
+            {
+                props.expanded
+                    ? <div>
+                        <PetDetails {...props} />
+                        <button className='adopt_button'>Adopt me!</button>
+                    </div>
+                    : null}
         </div>
     )
 }
