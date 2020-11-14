@@ -1,33 +1,18 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import PetPreview from './PetPreview';
 import { Link } from 'react-router-dom'
 
-import { PetContext } from '../contexts/PetContext'
-
 function LandingPage(props) {
-    const ctx = useContext(PetContext)
-
-    useEffect(() => {
-        if (!ctx.cat) {
-            ctx.getCat()
-        }
-        if (!ctx.dog) {
-            ctx.getDog()
-        }
-        if (!ctx.people) {
-            ctx.getPeople()
-        }
-
-    }, [])
-
+    console.log('CAT ON LANDING PAGE', props.cat, 'DOG ON LANDING PAGE', props.dog)
     return (
         <div className='landing_wrapper'>
             <section>
                 <div className='pet-header'>
                     <h3>Our Current Pets</h3>
                 </div>
-                <Link to='/cat'><PetPreview {...ctx.cat} type='cat' /></Link>
-                <Link to='/dog'><PetPreview {...ctx.dog} type='dog' /></Link>
+
+                <PetPreview {...props.cat} type='cat' />
+                <PetPreview {...props.dog} type='dog' />
             </section>
             <section>
                 <div className='pet-header'>

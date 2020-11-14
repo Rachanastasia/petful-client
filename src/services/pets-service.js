@@ -28,8 +28,6 @@ const PetsService = {
                 'content-type': 'application/json'
             }
         })
-            .then(res => res.json())
-            .then(setInterval(() => { }, 5000))
             .catch(err => console.log(err, err.message))
     },
 

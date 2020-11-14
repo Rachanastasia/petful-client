@@ -1,27 +1,36 @@
-import React, { useEffect, Fragment, useContext } from 'react';
-import Pet from './Pet';
+import React, { useEffect, Fragment, useState } from 'react';
+import PetsService from '../services/pets-service';
 import LandingPage from './LandingPage';
-import WaitingRoom from './WaitingRoom';
 import Adopt from './Adopt';
 import { Route, Switch } from 'react-router-dom';
-import { PetContext } from '../contexts/PetContext';
+import PeopleService from '../services/person-service';
 
 function Main() {
-    const ctx = useContext(PetContext);
+
+    //current cat and dog
+    const [cat, setCat] = useState({});
+    const [dog, setDog] = useState({});
+    const [people, setPeople] = useState([])
 
 
     useEffect(() => {
-        if (!ctx.cat) {
-            ctx.getCat()
-        }
-        if (!ctx.dog) {
-            ctx.getDog()
-        }
 
-        if (ctx.people === []) {
-            ctx.getPeople();
-        }
+        async function getData() {
+            try {
+                const c = await PetsService.getCat()
+                setCat(c)
 
+                const d = await PetsService.getDog()
+                setDog(d)
+
+                const p = await PeopleService.getAllPeople()
+                setPeople(p)
+            }
+            catch {
+                return err => console.log(err, err.message)
+            }
+        }
+        getData()
     }, [])
 
     return (
@@ -32,24 +41,20 @@ function Main() {
                 <Route
                     exact
                     path='/'
-                    component={LandingPage}
+                    render={() => <LandingPage
+                        cat={cat}
+                        dog={dog} />}
                 />
-
-                <Route
-                    path='/cat'
-                    render={() => <Pet type='cat' {...ctx.cat} />} />
-
-                <Route
-                    path='/dog'
-                    render={() => <Pet type='dog' {...ctx.dog} />} />
-
                 <Route
                     path='/register'
-                    component={Adopt} />
-
-                <Route
-                    path='/adopt'
-                    render={() => <WaitingRoom {...ctx} />} />
+                    render={() => <Adopt
+                        setDog={(d) => setDog(d)}
+                        setCat={u => setCat(u)}
+                        cat={cat}
+                        dog={dog}
+                        setPeople={(p) => setPeople(p)}
+                        people={people} />}
+                />
 
             </Switch>
 

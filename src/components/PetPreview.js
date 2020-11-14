@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { Fragment, useState } from 'react'
 import PetDetails from './PetDetails'
 
 function PetPreview(props) {
+
+    const [expanded, setExpanded] = useState(null)
 
     return (
         <div
             className={props.selected === true ? 'selected pet-preview' : 'pet-preview'}
         >
             <h4 className='meet'>Meet {props.name}</h4>
+            {expanded || props.expanded ? <p>{props.description}</p> : null}
             <img src={props.imageURL} />
             {
                 props.expanded
@@ -17,6 +20,18 @@ function PetPreview(props) {
                     </div>
                     : null
             }
+            {
+                expanded
+                    ? <Fragment>
+                        <PetDetails{...props} />
+                        <button onClick={() => setExpanded(false)}>Less</button>
+                    </Fragment>
+                    : props.expanded
+                        ? null
+                        : <button onClick={() => setExpanded(true)}>More</button>
+
+            }
+
         </div >
     )
 }

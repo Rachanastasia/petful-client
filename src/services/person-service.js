@@ -18,9 +18,6 @@ const PeopleService = {
         })
             .catch(err => console.log(err, err.message))
     },
-
-
-
 }
 
 export default PeopleService;
