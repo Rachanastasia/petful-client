@@ -29,9 +29,7 @@ function TurnToAdopt(props) {
 
     return (
         <Fragment>
-            {!cat && !dog ? <h3>It's your turn to adopt!</h3> : null}
-            {cat ? <div className='review'> <h4>Congratulations, you adopted {props.cat.name}</h4> </div> : null}
-            {dog ? <div className='review review_second'> <h4>Congratulations, you adopted {props.dog.name}</h4> </div> : null}
+            <h3>It's your turn to adopt!</h3>
             <PetPreview selected={cat} select={(m) => setCat(m)} {...props.cat} type='cat' expanded={true} />
             <PetPreview selected={dog} select={(m) => setDog(m)} {...props.dog} type='dog' expanded={true} />
             <Link to='/' onClick={() => handleAdoption()}>

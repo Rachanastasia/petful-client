@@ -136,6 +136,7 @@ button:focus{
     justify-content: center;
     align-items: center;
     width: 100%;
+    max-width: 650px;
     flex-direction: column;
     padding: var(--spacer-med) var(--spacer-sm);
     background-color: var(--light);
@@ -284,13 +285,15 @@ a{
     color: var(--white);
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 140px;
     font-size: 20px;
+    margin-top: var(--spacer-sm)
 }
 
-.review_second{
-    margin-top: var(--spacer-sm);
+.unadopt{
+    border: 2px solid var(--white)
 }
 
 @media all and (min-width: 400px){
