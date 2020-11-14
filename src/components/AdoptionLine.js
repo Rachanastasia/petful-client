@@ -9,17 +9,28 @@ function AdoptionLine(props) {
     const recentJsx = recent.map((p, index) => <p key={index}>{p.pet} was adopted by {p.person}</p>)
     const peopleJsx = [...props.people, props.user].map((p, index) => <p key={index}>{p}</p>)
 
-    if (!props.people.length && !ready) {
-        setReady(true)
-    }
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            handleAdoption()
+        }, 2000)
+
+        return () => clearTimeout(timer)
+    }, [recent]
+    )
 
     const handleAdoption = async () => {
+
+        if (!props.people.length && !ready) {
+            setReady(true)
+            return null;
+        }
+
         let lastAdoption = {}
         let temp = props.people
         let shifted = temp.shift()
         props.setPeople(temp)
 
-        let coinFlip = Math.floor(Math.random * 1) === 1 ? 'cat' : 'dog'
+        let coinFlip = Math.floor(Math.random() * 2) === 1 ? 'cat' : 'dog'
 
         console.log('coinflip', coinFlip)
 
@@ -46,6 +57,8 @@ function AdoptionLine(props) {
         }
 
         setRecent([...recent, lastAdoption])
+
+
     }
 
     return (
@@ -54,7 +67,7 @@ function AdoptionLine(props) {
                 ? <TurnToAdopt cat={props.cat} dog={props.dog} setCat={(c) => props.setCat(c)} setDog={(d) => props.setDog(d)} />
                 : <Fragment>
                     <h3 className='ready_title'>You're in line adopt!</h3>
-
+                    <p>The average wait time is 20 seconds.</p>
                     <div>
                         <div>
                             <h4 className='banner_p'>{props.people.length} people are ahead of you in line</h4>
@@ -62,7 +75,6 @@ function AdoptionLine(props) {
                         <div>
                             <h4>Recent adoptions</h4>
                             {recentJsx}</div>
-                        <button onClick={() => handleAdoption()}></button>
                     </div>
                 </Fragment>}
         </Fragment>

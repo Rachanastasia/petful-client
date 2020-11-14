@@ -227,7 +227,7 @@ button:focus{
 }
 
 .adopt_wrapper{
-    justify-content: space-evenly;
+    justify-content: flex-start;
     height: calc(100vh - 100px);
 }
 
@@ -277,11 +277,26 @@ a{
     align-self: center;
 }
 
+.review{
+    width: 100%;
+    padding: var(--spacer-sm);
+    background-color: var(--accent);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    font-size: 20px;
+}
+
+.review_second{
+    margin-top: var(--spacer-sm);
+}
+
 @media all and (min-width: 400px){
 
     h1{
-        font-size: 45px;
-       
+        font-size: 45px;  
     }
 
 

@@ -3,7 +3,6 @@ import PetPreview from './PetPreview';
 import { Link } from 'react-router-dom'
 
 function LandingPage(props) {
-    console.log('CAT ON LANDING PAGE', props.cat, 'DOG ON LANDING PAGE', props.dog)
     return (
         <section className='landing_wrapper'>
             <div>
