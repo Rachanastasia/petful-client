@@ -1,8 +1,12 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import PetPreview from './PetPreview'
+import { Link } from 'react-router-dom'
+
+
 function Congratulations(props) {
-    console.log(props.cat)
-    console.log(props.dog)
+
+
+
     return (
         <section>
             <h3>Congratulations!</h3>
@@ -13,6 +17,8 @@ function Congratulations(props) {
 
                 <h4>Your new dog:</h4>
                 <PetPreview {...props.dog} />
+
+                <Link to='/'><button>Done</button></Link>
             </Fragment>
 
 

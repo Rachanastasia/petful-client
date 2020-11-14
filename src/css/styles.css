@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 main{
-    height: 100%;
+    height: inherit;
     width: 100%;
     background-color: var(--white);
     color: var(--dark);
@@ -42,7 +42,8 @@ footer p{
 }
 section{
     padding: var(--spacer-med);
-    min-height: 100vh;
+    min-height: calc(100vh - 100px);
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -293,6 +294,10 @@ a{
         padding: var(--spacer-sm) var(--spacer-med) 0;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    section{
+        min-height: calc(100vh - 100px);
     }
 
     
