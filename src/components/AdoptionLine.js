@@ -32,8 +32,6 @@ function AdoptionLine(props) {
 
         let coinFlip = Math.floor(Math.random() * 2) === 1 ? 'cat' : 'dog'
 
-        console.log('coinflip', coinFlip)
-
         if (coinFlip === 'dog') {
             await PetsService.adpotDog()
             let dog = await PetsService.getDog()
