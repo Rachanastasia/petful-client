@@ -12,7 +12,7 @@ function AdoptionLine(props) {
     useEffect(() => {
         let timer = setTimeout(() => {
             handleAdoption()
-        }, 2000)
+        }, 5000)
 
         return () => clearTimeout(timer)
     }, [recent]
