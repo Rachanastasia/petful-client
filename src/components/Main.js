@@ -66,12 +66,3 @@ function Main() {
 }
 
 export default Main
-
-
-
-
-// {user && people
-    // ? <ReadyToAdopt
-
-    //     updatePeople={() => PeopleService.getAllPeople().then(people => setPeople(people))} />
-    // : null}

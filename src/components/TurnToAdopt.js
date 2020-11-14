@@ -12,8 +12,7 @@ function TurnToAdopt(props) {
         if (cat) {
             await PetsService.adpotCat()
 
-            const newCat = await PetsService.newCat()
-            console.log('new cat', newCat)
+            const newCat = await PetsService.getCat()
             props.setCat(newCat)
         }
 
