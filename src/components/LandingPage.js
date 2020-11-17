@@ -26,7 +26,7 @@ function LandingPage(props) {
                     <p>To adopt, click the button below and add your name to the queue. When it is your turn to adopt, you will be shown the pets available for adoption.</p>
 
                     <h4>But what if I want to adopt a specific dog?</h4>
-                    <p>Unfortunately, Petful cannot accomidate any special requests in adoption.</p>
+                    <p>Unfortunately, Petful cannot accomodate any special requests in adoption.</p>
                     <Link to='/register'><button>Get in line</button></Link>
                 </article>
             </div>

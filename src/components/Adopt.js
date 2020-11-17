@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { MdArrowBack } from 'react-icons/md'
 import PeopleService from '../services/person-service'
@@ -7,17 +7,28 @@ import AdoptionLine from './AdoptionLine';
 function Adopt(props) {
     const [val, setVal] = useState('')
     const [user, setUser] = useState(null)
+    const [counter, setCounter] = useState(0)
+
+    useEffect(() => {
+        if (counter === 0) {
+            PeopleService.getAllPeople().then(r => setCounter(r.length))
+        }
+
+    }, [])
+
 
 
     const handlePost = (e) => {
         e.preventDefault()
-        PeopleService.addPerson(val).then(() => setUser(val)).catch(err => console.log(err))
+        PeopleService.addPerson(val)
+            .then(() => setUser(val))
+            .catch(err => console.log(err))
 
     }
     return (
         <section className='adopt_wrapper'>
             {user
-                ? <AdoptionLine {...props} user={user} />
+                ? <AdoptionLine {...props} user={user} counter={counter} setCounter={(d) => setCounter(d)} />
                 : <Fragment>
                     <div className='pet-header'>
                         <Link to='/'>

@@ -4,7 +4,10 @@ const PeopleService = {
 
     getAllPeople() {
         return fetch(`${config.REACT_APP_API_BASE}/api/people`)
-            .then(res => res.json())
+            .then(res => {
+                let r = res.json()
+                return r;
+            })
             .catch(err => console.log(err, err.message))
     },
 
@@ -18,6 +21,14 @@ const PeopleService = {
         })
             .catch(err => console.log(err, err.message))
     },
+
+    removePerson() {
+        return fetch(`${config.REACT_APP_API_BASE}/api/people`, {
+            method: 'DELETE'
+        })
+            .catch(err => console.log(err, err.message))
+
+    }
 }
 
 export default PeopleService;
