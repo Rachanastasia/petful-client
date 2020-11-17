@@ -10,8 +10,6 @@ function Main() {
     //current cat and dog
     const [cat, setCat] = useState({});
     const [dog, setDog] = useState({});
-    const [people, setPeople] = useState([])
-
 
     useEffect(() => {
 
@@ -22,9 +20,6 @@ function Main() {
 
                 const d = await PetsService.getDog()
                 setDog(d)
-
-                const p = await PeopleService.getAllPeople()
-                setPeople(p)
             }
             catch {
                 return err => console.log(err, err.message)
@@ -51,9 +46,7 @@ function Main() {
                         setDog={(d) => setDog(d)}
                         setCat={u => setCat(u)}
                         cat={cat}
-                        dog={dog}
-                        setPeople={(p) => setPeople(p)}
-                        people={people} />}
+                        dog={dog} />}
                 />
 
             </Switch>

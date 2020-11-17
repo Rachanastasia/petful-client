@@ -17,12 +17,6 @@ function AdoptionLine(props) {
 
 
     useEffect(() => {
-        let func = async () => {
-            let people = await PeopleService.getAllPeople()
-            props.setPeople(people)
-        }
-
-        func()
 
         let timer = setTimeout(() => {
             handleAdoption()
@@ -32,10 +26,40 @@ function AdoptionLine(props) {
     }, [recent])
 
 
+    if (dogStatus.adopted && catStatus.adopted) {
 
+        if (dogStatus.ready) {
+            setDogStatus({
+                adopted: true,
+                ready: false
+            })
+
+        }
+
+        if (catStatus.ready) {
+            setCatStatus({
+                adopted: true,
+                ready: false
+            })
+
+        }
+
+    }
 
 
     const handleAdoption = async () => {
+        let lastAdoption = {}
+
+        if (dogStatus.ready || catStatus.ready) {
+            let temp = props.people
+            let hold = temp.shift()
+
+            props.setPeople([...props.people, hold])
+
+            return null;
+
+        }
+
         if (props.counter == 0 && !dogStatus.ready && !catStatus.ready) {
 
             setDogStatus({
@@ -48,6 +72,10 @@ function AdoptionLine(props) {
                 adopted: false
             })
 
+            let temp = props.people
+            let hold = temp.shift()
+            props.setPeople([...temp, hold])
+
             return null;
         }
 
@@ -55,7 +83,8 @@ function AdoptionLine(props) {
 
         let temp = props.people
         let shifted = temp.shift()
-        let lastAdoption = {}
+
+        props.setPeople([...temp, shifted])
 
         let coinFlip = Math.floor(Math.random() * 2) === 1 ? 'cat' : 'dog'
 
@@ -83,16 +112,11 @@ function AdoptionLine(props) {
 
         setRecent([...recent, lastAdoption])
 
-        await PeopleService.removePerson()
 
-        let people = await PeopleService.getAllPeople()
-
-        if (people.length + 2 > props.people.length) {
-            props.setPeople(people)
-        }
     }
 
     const handleUserAdoption = async (type) => {
+        let lastAdoption = {}
 
         if (type === 'cat') {
             setCatStatus({
@@ -101,10 +125,18 @@ function AdoptionLine(props) {
                 name: props.cat.name
             })
 
+            lastAdoption = {
+                person: props.user,
+                pet: props.cat.name
+            }
+
+            setRecent([...recent, lastAdoption])
+
             await PetsService.adpotCat()
 
             const newCat = await PetsService.getCat()
             props.setCat(newCat)
+
         }
 
 
@@ -115,15 +147,18 @@ function AdoptionLine(props) {
                 name: props.dog.name
             })
 
+            lastAdoption = {
+                person: props.user,
+                pet: props.dog.name
+            }
+
+            setRecent([...recent, lastAdoption])
+
             await PetsService.adpotDog()
 
             const newDog = await PetsService.getDog()
             props.setDog(newDog)
         }
-
-
-
-
     }
 
     return (
@@ -148,15 +183,17 @@ function AdoptionLine(props) {
                     : null}
                 {catStatus.adopted ? <div className='review'> <h4>Congratulations, you adopted {catStatus.name}</h4> </div> : null}
 
-                <div>
-                    <div>
+                <div className='list_wrapper'>
+                    <div className='list'>
                         {!catStatus.ready && !dogStatus.ready
                             ? <h4 className='banner_p'>{props.counter} people are ahead of you in line</h4>
                             : <h4>People in line</h4>}
                         {peopleJsx}</div>
                     <div>
-                        <h4>Recent adoptions</h4>
-                        {recentJsx}</div>
+                        <div className='list'>
+                            <h4>Recent adoptions</h4>
+                            {recentJsx}</div>
+                    </div>
                 </div>
             </Fragment>
             <Link to='/'>

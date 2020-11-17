@@ -296,6 +296,21 @@ a{
     border: 2px solid var(--white)
 }
 
+.list_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-start
+}
+
+.list {
+    padding: var(--spacer-sm);
+}
+
+.list h4{
+    padding-bottom: var(--spacer-sm);
+}
+
 @media all and (min-width: 400px){
 
     h1{
@@ -317,6 +332,10 @@ a{
     section{
         min-height: calc(100vh - 100px);
         
+    }
+
+    .list_wrapper{
+        flex-direction: row;
     }
 
     
