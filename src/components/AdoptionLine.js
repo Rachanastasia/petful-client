@@ -1,12 +1,15 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import PetsService from '../services/pets-service';
-import TurnToAdopt from './TurnToAdopt';
+import { Link } from 'react-router-dom';
 import PetPreview from './PetPreview';
 import PeopleService from '../services/person-service';
 
 function AdoptionLine(props) {
-    const [ready, setReady] = useState(false)
+
     const [recent, setRecent] = useState([])
+    const [catStatus, setCatStatus] = useState({ ready: false, adopted: false })
+    const [dogStatus, setDogStatus] = useState({ ready: false, adopted: false })
+
 
     const recentJsx = recent.map((p, index) => <p key={index}>{p.pet} was adopted by {p.person}</p>)
     const peopleJsx = props.people.map((p, index) => <p key={index}>{p}</p>)
@@ -33,8 +36,18 @@ function AdoptionLine(props) {
 
 
     const handleAdoption = async () => {
-        if (props.counter == 0 && !ready) {
-            setReady(true)
+        if (props.counter == 0 && !dogStatus.ready && !catStatus.ready) {
+
+            setDogStatus({
+                ready: true,
+                adopted: false
+            })
+
+            setCatStatus({
+                ready: true,
+                adopted: false
+            })
+
             return null;
         }
 
@@ -43,8 +56,6 @@ function AdoptionLine(props) {
         let temp = props.people
         let shifted = temp.shift()
         let lastAdoption = {}
-
-
 
         let coinFlip = Math.floor(Math.random() * 2) === 1 ? 'cat' : 'dog'
 
@@ -79,34 +90,79 @@ function AdoptionLine(props) {
         if (people.length + 2 > props.people.length) {
             props.setPeople(people)
         }
+    }
+
+    const handleUserAdoption = async (type) => {
+
+        if (type === 'cat') {
+            setCatStatus({
+                ready: false,
+                adopted: true,
+                name: props.cat.name
+            })
+
+            await PetsService.adpotCat()
+
+            const newCat = await PetsService.getCat()
+            props.setCat(newCat)
+        }
+
+
+        else {
+            setDogStatus({
+                ready: false,
+                adopted: true,
+                name: props.dog.name
+            })
+
+            await PetsService.adpotDog()
+
+            const newDog = await PetsService.getDog()
+            props.setDog(newDog)
+        }
+
+
 
 
     }
 
-
-
-
-
-
     return (
         <Fragment>
-            {ready === true
-                ? <TurnToAdopt cat={props.cat} dog={props.dog} setCat={(c) => props.setCat(c)} setDog={(d) => props.setDog(d)} />
-                : <Fragment>
-                    <h3 className='ready_title'>You're in line adopt!</h3>
-                    <p>The average wait time is 20 seconds.</p>
-                    {props.dog ? <PetPreview {...props.dog} /> : null}
-                    {props.cat ? <PetPreview {...props.cat} /> : null}
+
+            <Fragment>
+                {!catStatus.ready && !dogStatus.ready
+                    ? <Fragment> <h3 className='ready_title'>You're in line adopt!</h3>
+                        <p>The average wait time is 20 seconds.</p></Fragment>
+                    : null}
+
+                {props.dog ?
+                    <PetPreview {...props.dog} type='dog'
+                        adopt={(n) => handleUserAdoption(n)}
+                        expanded={dogStatus.ready && !dogStatus.adopted ? true : false} />
+                    : null}
+                {dogStatus.adopted ? <div className='review'> <h4>Congratulations, you adopted {dogStatus.name}</h4> </div> : null}
+                {props.cat ?
+                    <PetPreview {...props.cat} type='cat'
+                        adopt={(n) => handleUserAdoption(n)}
+                        expanded={catStatus.ready && !catStatus.adopted ? true : false} />
+                    : null}
+                {catStatus.adopted ? <div className='review'> <h4>Congratulations, you adopted {catStatus.name}</h4> </div> : null}
+
+                <div>
                     <div>
-                        <div>
-                            <h4 className='banner_p'>{props.counter} people are ahead of you in line</h4>
-                            {peopleJsx}</div>
-                        <div>
-                            <h4>Recent adoptions</h4>
-                            {recentJsx}</div>
-                    </div>
-                </Fragment>}
-        </Fragment>
+                        {!catStatus.ready && !dogStatus.ready
+                            ? <h4 className='banner_p'>{props.counter} people are ahead of you in line</h4>
+                            : <h4>People in line</h4>}
+                        {peopleJsx}</div>
+                    <div>
+                        <h4>Recent adoptions</h4>
+                        {recentJsx}</div>
+                </div>
+            </Fragment>
+            <Link to='/'>
+                <button>Done</button>
+            </Link>
+        </Fragment >
     )
 }
 

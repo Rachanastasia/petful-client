@@ -16,11 +16,10 @@ function PetPreview(props) {
                 props.expanded && !props.selected
                     ? <div>
                         <PetDetails {...props} />
-                        <button className='adopt_button' onClick={() => props.select(!props.selected)}>Adopt me!</button>
+                        <button className='adopt_button' onClick={() => props.adopt(props.type)}>Adopt</button>
                     </div>
-                    : props.expanded && props.selected
-                        ? <div className='review'> <h4>Congratulations, you adopted {props.name}</h4> <button className='adopt_button unadopt' onClick={() => props.select(!props.selected)}>Unadopt</button></div>
-                        : null
+                    : null
+
             }
             {
                 expanded
