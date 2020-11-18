@@ -10,11 +10,8 @@ function AdoptionLine(props) {
     const [catStatus, setCatStatus] = useState({ ready: false, adopted: false })
     const [dogStatus, setDogStatus] = useState({ ready: false, adopted: false })
 
-
     const recentJsx = recent.map((p, index) => <p key={index}>{p.pet} was adopted by {p.person}</p>)
     const peopleJsx = props.people.map((p, index) => <p key={index}>{p}</p>)
-
-
 
     useEffect(() => {
 
@@ -23,7 +20,7 @@ function AdoptionLine(props) {
         }, 5000)
 
         return () => clearTimeout(timer)
-    }, [recent])
+    }, [props.people])
 
 
     if (dogStatus.adopted && catStatus.adopted) {
@@ -46,76 +43,88 @@ function AdoptionLine(props) {
 
     }
 
-
     const handleAdoption = async () => {
         let lastAdoption = {}
 
-        if (dogStatus.ready || catStatus.ready) {
-            let temp = props.people
-            let hold = temp.shift()
+        if (props.counter > 0) {
 
-            props.setPeople([...props.people, hold])
-
-            return null;
-
-        }
-
-        if (props.counter == 0 && !dogStatus.ready && !catStatus.ready) {
-
-            setDogStatus({
-                ready: true,
-                adopted: false
-            })
-
-            setCatStatus({
-                ready: true,
-                adopted: false
-            })
+            props.setCounter(props.counter - 1)
 
             let temp = props.people
-            let hold = temp.shift()
-            props.setPeople([...temp, hold])
+            let shifted = temp.shift()
 
-            return null;
-        }
+            await PeopleService.removePerson()
 
-        props.setCounter(props.counter - 1)
+            let coinFlip = Math.floor(Math.random() * 2) === 1 ? 'cat' : 'dog'
 
-        let temp = props.people
-        let shifted = temp.shift()
+            if (coinFlip === 'dog') {
+                await PetsService.adpotDog()
+                let dog = await PetsService.getDog()
+                props.setDog(dog)
 
-        props.setPeople([...temp, shifted])
-
-        let coinFlip = Math.floor(Math.random() * 2) === 1 ? 'cat' : 'dog'
-
-        if (coinFlip === 'dog') {
-            await PetsService.adpotDog()
-            let dog = await PetsService.getDog()
-            props.setDog(dog)
-
-            lastAdoption = {
-                person: shifted,
-                pet: props.dog.name
+                lastAdoption = {
+                    person: shifted,
+                    pet: props.dog.name
+                }
             }
-        }
 
-        else if (coinFlip === 'cat') {
-            await PetsService.adpotCat()
-            let cat = await PetsService.getCat()
-            props.setCat(cat)
+            else if (coinFlip === 'cat') {
+                await PetsService.adpotCat()
+                let cat = await PetsService.getCat()
+                props.setCat(cat)
 
-            lastAdoption = {
-                person: shifted,
-                pet: props.cat.name
+                lastAdoption = {
+                    person: shifted,
+                    pet: props.cat.name
+                }
             }
+
+            setRecent([...recent, lastAdoption])
+            props.setPeople([...temp])
+
+        }
+        else {
+
+            let rand = Math.floor(Math.random() * 3)
+            let people = ['Jim Lahey', 'Trevor Cory', 'Randy Lahey']
+
+            if (!dogStatus.ready && !catStatus.ready) {
+
+                setCatStatus({
+                    ready: true,
+                    adopted: catStatus.adopted
+                })
+
+                setDogStatus({
+                    ready: true,
+                    adopted: dogStatus.adopted
+                })
+            }
+
+            if (props.people.length < 5) {
+                await PeopleService.addPerson(people[rand])
+                props.setPeople([...props.people, people[rand]])
+
+            }
+            return null
+
         }
 
-        setRecent([...recent, lastAdoption])
 
 
     }
 
     const handleUserAdoption = async (type) => {
+        if (!catStatus.adopted && !dogStatus.adopted) {
+
+            PeopleService.removePerson().catch(err => console.log(err))
+
+            let temp = props.people
+            temp.shift()
+            props.setPeople(temp)
+
+        }
+
         let lastAdoption = {}
 
         if (type === 'cat') {
@@ -160,6 +169,8 @@ function AdoptionLine(props) {
             props.setDog(newDog)
         }
     }
+
+
 
     return (
         <Fragment>

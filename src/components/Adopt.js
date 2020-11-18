@@ -23,11 +23,13 @@ function Adopt(props) {
 
 
 
-    const handlePost = (e) => {
+    const handlePost = async (e) => {
         e.preventDefault()
 
-        setUser(val)
+        await PeopleService.addPerson(val)
+
         setPeople([...people, val])
+        setUser(val)
 
     }
     return (
